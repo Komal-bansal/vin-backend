@@ -76,7 +76,6 @@ const smtpTransport = nodemailer.createTransport({
 });
 var rand, mailOptions, host, link;
 
-
 sendMail = (req, res) => {
     rand = Math.floor((Math.random() * 100) + 54);
     host = req.get('host');
