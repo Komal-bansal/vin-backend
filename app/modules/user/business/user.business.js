@@ -3,8 +3,9 @@ const { msg } = require("../../../config/messages"),
     { pickUserProfileResponse, pickRegistrationData, pickRegistrationResponse, pickUserCredentials, pickSociailAccountCredentials } = require("../../../helpers/pickResponse.helper"),
     { compare } = require("bcrypt"),
     { generateAuthToken } = require("../../../util/generate.token"),
-    { socialloginResonse } = require("../../../helpers/commonResponse.helper");
-nodemailer = require('nodemailer')
+    { socialloginResonse } = require("../../../helpers/commonResponse.helper"),
+    nodemailer = require('nodemailer'),
+    { VerificationCode } = require('../models/verificationCode.model');
 
 // registration
 const registration = async (req, res) => {
@@ -15,8 +16,8 @@ const registration = async (req, res) => {
     //     throw msg.duplicateEmail;
     // }
     let user = new User(body);
-    sendMail(req, res);
     let response = await user.save();
+    sendMail(req, res, response.id);
     if (response) return {
         result: pickRegistrationResponse(response),
         status: 200,
@@ -52,10 +53,12 @@ const login = async (data) => {
 
 const verify = async (req, res) => {
     if ((req.protocol + "://" + req.get('host')) == ("http://" + host)) {
-        if (req.query.id == rand) {
-            return {
-                result: 'Domain is matched. Information is from authentic email'
-            }
+        var code = await VerificationCode.findOne({ code: req.query.id });
+        console.log(code);
+        if (code) {
+            let a = await User.findByIdAndUpdate(code.user, { active: true });
+            let b = await VerificationCode.findByIdAndDelete(code.id);
+            return 'Domain is matched. Information is from authentic email';
         }
         else {
             throw 'bad request'
@@ -76,16 +79,22 @@ const smtpTransport = nodemailer.createTransport({
 });
 var rand, mailOptions, host, link;
 
-sendMail = (req, res) => {
-    rand = Math.floor((Math.random() * 100) + 54);
+sendMail = async (req, res, id) => {
+    rand = Math.floor((Math.random() * 10000) + 4);
+    var data = {
+        code: `${rand}_${id}`,
+        user: id
+    }
+    var verification = new VerificationCode(data);
+    let response = await verification.save();
+    console.log(response);
     host = req.get('host');
-    link = "http://" + req.get('host') + "/verify?id=" + rand;
+    link = "http://" + req.get('host') + "/verify?id=" + rand + '_' + id;
     mailOptions = {
         to: req.body.email,
         subject: "Please confirm your Email account",
         html: "Hello,<br> Please Click on the link to verify your email.<br><a href=" + link + ">Click here to verify</a>"
     }
-    console.log(mailOptions);
     smtpTransport.sendMail(mailOptions, function (error, response) {
         if (error) {
             console.log(error);

@@ -16,9 +16,6 @@ app.use("/", userRouter);
 app.use("/car", carRouter);
 app.use("/owner", ownerRouter);
 
-// app.get('/verify', function (req, res) {
-// });
-
 app.listen(port, () => {
   console.log(`Server started at  ${port}, ${process.env.NODE_ENV}, ${process.env.MONGODB_URI}`);
 });

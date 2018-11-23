@@ -38,5 +38,4 @@ module.exports = {
     user_register,
     user_login,
     user_verify
-    // social_login
 };
