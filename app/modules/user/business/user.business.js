@@ -12,9 +12,9 @@ const registration = async (req, res) => {
     req.body.active = false;
     let body = req.body;
     let userExist = await User.findOne({ email: body.email });
-    // if (userExist) {
-    //     throw msg.duplicateEmail;
-    // }
+    if (userExist) {
+        throw msg.duplicateEmail;
+    }
     let user = new User(body);
     let response = await user.save();
     sendMail(req, res, response.id);
@@ -29,9 +29,8 @@ const registration = async (req, res) => {
 // login
 const login = async (data) => {
     var body = pickUserCredentials(data);
-
     let user = await User.findOne({ email: body.email })
-    if (!user) {
+    if (!user || user.code != true) {
         throw msg.userNotFound;
     }
     if (!user.password) {
