@@ -30,7 +30,7 @@ const registration = async (req, res) => {
 const login = async (data) => {
     var body = pickUserCredentials(data);
     let user = await User.findOne({ email: body.email })
-    if (!user || user.code != true) {
+    if (!user || user.active != true) {
         throw msg.userNotFound;
     }
     if (!user.password) {
