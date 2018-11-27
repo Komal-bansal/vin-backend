@@ -6,7 +6,7 @@ const ownerSchema = new mongoose.Schema(
     Num: String,
     phone: Number,
     Address: String,
-    PurchaseDate: Number
+    PurchaseDate: String
   },
   {
     timestamps: false,

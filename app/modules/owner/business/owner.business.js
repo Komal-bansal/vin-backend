@@ -16,9 +16,9 @@ const postOwner = async data => {
 };
 
 const getOwner = async data => {
-  let owner = await Owner.findOne({ Number: data.params.no });
+  let owner = await Owner.find({ Number: data.params.no });
   return {
-    result: pickOwnerResponse(owner),
+    result: owner,
     status: 200,
     message: msg.success
   };
