@@ -72,7 +72,7 @@ const verify = async (req, res) => {
 const smtpTransport = nodemailer.createTransport({
     service: "Gmail",
     auth: {
-        user: "aman@parangat.com",
+        user: "blockchain.parangat@gmail.com",
         pass: "demo@1234"
     }
 });
@@ -92,7 +92,7 @@ sendMail = async (req, res, id) => {
     mailOptions = {
         to: req.body.email,
         subject: "Please confirm your Email account",
-        html: "Hello,<br> Please Click on the link to verify your email.<br><a href=" + link + ">Click here to verify</a>"
+        html: "Hello,<br>Welcome to VINBO. Please Click on the link to verify your email.<br><a href=" + link + ">Click here to verify</a>"
     }
     smtpTransport.sendMail(mailOptions, function (error, response) {
         if (error) {
