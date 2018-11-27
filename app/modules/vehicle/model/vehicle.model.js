@@ -9,7 +9,7 @@ const vehicleSchema = new mongoose.Schema(
       type: String,
       // unique: true
     },
-    type: Sting
+    type: String
   },
   {
     timestamps: false,
