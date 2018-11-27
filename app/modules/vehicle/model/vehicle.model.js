@@ -3,8 +3,7 @@ const mongoose = require("mongoose");
 const vehicleSchema = new mongoose.Schema(
   {
     model: {
-      type: String,
-      unique: true
+      type: Array,
     },
     brand: {
       type: String,
