@@ -5,7 +5,7 @@ const express = require("express"),
   { userRouter } = require("./app/modules/user/routes/user.routes"),
   { carRouter } = require("./app/modules/cars/routes/cars.routes"),
   { ownerRouter } = require("./app/modules/owner/routes/owner.route"),
-  // { vehicleRouter } = require("./app/modules/vehicle/routes/vehicle.route"),
+  { vehicleRouter } = require("./app/modules/vehicle/routes/vehicle.route"),
 
   db = require("./db/mongoose"),
   port = process.env.PORT,
@@ -18,7 +18,7 @@ app.use("/", userRouter);
 app.use("/car", carRouter);
 app.use("/owner", ownerRouter);
 app.use("/owner", ownerRouter);
-// app.use("/vehicle", vehicleRouter);
+app.use("/vehicle", vehicleRouter);
 
 app.listen(port, () => {
   console.log(`Server started at  ${port}, ${process.env.NODE_ENV}, ${process.env.MONGODB_URI}`);
