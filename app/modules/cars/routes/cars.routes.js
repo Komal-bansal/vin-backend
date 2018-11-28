@@ -1,6 +1,6 @@
 const { Router } = require("express"),
   carRouter = Router(),
-  { post_car, get_car } = require("../../cars/contoller/cars.controller");
+  { post_car, get_car } = require("../../cars/contoller/cars.controller")
 { jwt_middleware } = require("./../../../jwt.middleware");
 carRouter.use(jwt_middleware);
 
