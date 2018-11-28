@@ -1,5 +1,5 @@
 const { msg } = require("../../../config/messages"),
-  { Vehicle } = require("../model/vehicle.model"),
+  { Vehicle } = require("../model/vehicle.model");
 
 // registration
 const postvehicle = async data => {
