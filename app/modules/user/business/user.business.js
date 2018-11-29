@@ -92,8 +92,8 @@ sendMail = async (req, res, id) => {
     mailOptions = {
         to: req.body.email,
         subject: "Please confirm your Email account",
-        html: "Hello,<br><h3>Welcome to VINBO. Please Click on the link to verify your email.<br><a href=" + link + ">Click here to verify</a></h3><p>Vehicle Identification Number on Blockchain. The application is designed to save your data on Blockchain. VINBO uses the Ropsten on the Ethereum Blockchain network which is absolutely free.  It means you can play around with this application and you don’t have to pay anything. This application is for demo and testing purpose only. 
-</p>"
+        html: "Hello,<br>Welcome to our new weapons app. Please Click on the link to verify your email.<br><a href=" + link + ">Click here to verify</a>"
+
     }
     smtpTransport.sendMail(mailOptions, function (error, response) {
         if (error) {
