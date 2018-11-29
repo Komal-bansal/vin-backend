@@ -1,7 +1,7 @@
 {
     "development": {
         "PORT": 8080,
-        "MONGODB_URI": "mongodb://127.0.0.1:27017/node-modular",
+        "MONGODB_URI": "mongodb://aman:demo1234@ds141175.mlab.com:41175/parangat",
         "secret_token": "itsParangatModularNodeAppSecretKey"
     },
     "prod": {
